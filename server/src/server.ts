@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import { AppDataSource } from './data-source';
 
 const app = express();
 
@@ -13,4 +14,10 @@ app.get('/', (req, res) => {
 let port = 4000;
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
+
+  AppDataSource.initialize()
+    .then(() => {
+      console.log('database initialized!!!');
+    })
+    .catch((error) => console.error(error));
 });

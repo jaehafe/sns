@@ -23,7 +23,7 @@ export default class User extends BaseEntity {
 
   @Index()
   @Length(3, 32, { message: '사용자 이름은 3자 이상이어야 합니다.' })
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Exclude()

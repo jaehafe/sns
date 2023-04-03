@@ -11,6 +11,7 @@ import {
 import BaseEntity from './Entity';
 import bcrypt from 'bcryptjs';
 import Post from './Post';
+import Vote from './Vote';
 
 @Entity('users')
 export default class User extends BaseEntity {

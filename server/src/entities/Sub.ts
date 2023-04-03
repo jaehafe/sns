@@ -1,14 +1,6 @@
 import { Expose } from 'class-transformer';
 import BaseEntity from './Entity';
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import User from './User';
 import Post from './Post';
 
@@ -37,7 +29,7 @@ export default class Sub extends BaseEntity {
   @JoinColumn({ name: 'username', referencedColumnName: 'username' })
   user: User;
 
-  @OneToMany(() => postMessage, (post) => post.sub)
+  @OneToMany(() => Post, (post) => post.sub)
   posts: Post[];
 
   @Expose()

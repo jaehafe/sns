@@ -12,6 +12,8 @@ import BaseEntity from './Entity';
 import User from './User';
 import Sub from './Sub';
 import { makeId, slugify } from '../utils/helper';
+import Vote from './Vote';
+import Comment from './Comment';
 
 @Entity('posts')
 export default class Post extends BaseEntity {
@@ -48,7 +50,7 @@ export default class Post extends BaseEntity {
   comments: Comment[];
 
   @Exclude()
-  @OneToMany(() => Vote, () => vote.post)
+  @OneToMany(() => Vote, (vote) => vote.post)
   votes: Vote[];
 
   @Expose() get url(): string {

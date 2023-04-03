@@ -57,3 +57,8 @@ export default class Sub extends BaseEntity {
  * name 속성은 현재 엔티티(Sub)에서 사용될 외래키 컬럼의 이름을 지정.
  * referencedColumnName 속성은 연결되는 엔티티(User)에서 사용될 컬럼의 이름을 지정.
  */
+
+/**
+ * @Expose
+ * 데코레이터를 사용하여 원하는 프로퍼티만 노출시킬 수 있다.
+ */

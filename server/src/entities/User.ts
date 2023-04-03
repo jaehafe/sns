@@ -1,4 +1,5 @@
 import { IsEmail, Length } from 'class-validator';
+import { Exclude } from 'class-transformer';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,10 +7,10 @@ import {
   Index,
   OneToMany,
   BeforeInsert,
-  BaseEntity,
 } from 'typeorm';
+import BaseEntity from './Entity';
 import bcrypt from 'bcryptjs';
-import { Exclude } from 'class-transformer';
+import Post from './Post';
 
 @Entity('users')
 export default class User extends BaseEntity {

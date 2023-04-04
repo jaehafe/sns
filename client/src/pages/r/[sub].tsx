@@ -1,11 +1,18 @@
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 import SideBar from '../../components/SideBar';
+import { useAuthState } from '../../context/auth';
 
 const SubPage = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const [ownSub, setOwnSub] = useState(false);
+  const { authenticated, user } = useAuthState();
+  const subName = router.query.sub;
+
   const fetcher = async (url: string) => {
     try {
       const res = await axios.get(url);
@@ -16,23 +23,48 @@ const SubPage = () => {
     }
   };
 
-  const router = useRouter();
-  const subName = router.query.sub;
   const { data: sub, error } = useSWR(subName ? `/subs/${subName}` : null, fetcher);
+
   console.log('sub>>', sub);
 
+  useEffect(() => {
+    if (!sub || !user) return;
+    setOwnSub(authenticated && user.username === sub.username);
+  }, [sub]);
+
+  const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) return;
+
+    const file = e.target.files[0];
+    console.log('file', file);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('type', fileInputRef.current!.name);
+
+    try {
+      await axios.post(`/subs/${sub.name}/upload`, formData, {
+        headers: { 'Context-Type': 'multipart/form-data' },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const openFileInput = (type: string) => {
-    // const fileInput = fileInputRef.current;
-    // if (fileInput) {
-    //     fileInput.name = type;
-    //     fileInput.click();
-    // }
+    if (!ownSub) return;
+    const fileInput = fileInputRef.current;
+    if (fileInput) {
+      fileInput.name = type;
+      fileInput.click();
+    }
   };
 
   return (
     <>
       {sub && (
         <div>
+          <input type="file" hidden={true} ref={fileInputRef} onChange={uploadImage} />
           {/* 배너 이미지 */}
           <div className="bg-gray-400">
             {sub.bannerUrl ? (

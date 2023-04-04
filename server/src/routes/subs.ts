@@ -48,6 +48,18 @@ const createSub = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getSub = async (req: Request, res: Response) => {
+  const name = req.params.name;
+
+  try {
+    const sub = await Sub.findOneByOrFail({ name });
+    return res.json(sub);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Sub를 찾을 수 없습니다.' });
+  }
+};
+
 const topSubs = async (req: Request, res: Response) => {
   try {
     const imageUrlExp = `COALESCE('${process.env.APP_URL}/images/' || s."imageUrn",'https://www.gravatar.com/avatar?d=mp&f=y')`;
@@ -68,6 +80,7 @@ const topSubs = async (req: Request, res: Response) => {
 
 const router = Router();
 
+router.get('/:name', userMiddleware, authMiddleware, getSub);
 router.post('/', userMiddleware, authMiddleware, createSub);
 router.get('/sub/topSubs', topSubs);
 

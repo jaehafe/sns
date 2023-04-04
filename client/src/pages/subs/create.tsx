@@ -77,21 +77,29 @@ const SubCreate = () => {
 
 export default SubCreate;
 
-// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-//   try {
-//     const cookie = req.headers.cookie;
-//     // 쿠키가 없으면 에러를 전송
-//     if (!cookie) throw new Error('Missing auth token cookie');
+// req와 res는 클라이언트에서 전달되는 객체가 아니며, 서버 사이드에서 생성되는 객체
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  try {
+    const cookie = req.headers.cookie;
+    // 쿠키가 없으면 에러를 전송
+    if (!cookie) throw new Error('Missing auth token cookie');
 
-//     // 쿠키가 있으면 그 쿠키를 이용해서 백엔드에서 인증 처리
-//     await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api/auth/me`, {
-//       headers: { cookie },
-//     });
-//     return { props: {} };
-//   } catch (error) {
-//     // 백엔드의 요청에서 가져온 쿠키를 이용해 인증 처리할 때 에러가 발생 시, /login 페이지로 이동
-//     res.writeHead(307, { Location: '/login' }).end();
+    // 쿠키가 있으면 그 쿠키를 이용해서 백엔드에서 인증 처리
+    await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api/auth/me`, {
+      headers: { cookie },
+    });
+    return { props: {} };
+  } catch (error) {
+    // 백엔드의 요청에서 가져온 쿠키를 이용해 인증 처리할 때 에러가 발생 시, /login 페이지로 이동
+    res.writeHead(307, { Location: '/login' }).end();
 
-//     return { props: {} };
-//   }
-// };
+    return { props: {} };
+  }
+};
+
+/**
+ * getServerSideProps 함수는 컴포넌트를 렌더링하기 전에 먼저 실행되며, 이 함수가 반환하는 객체는 컴포넌트의 props에 추가
+ * props 객체는 반드시 객체 형태를 가져야 하며, 이 객체에 포함된 속성들은 컴포넌트에서 사용할 수 있습니다.
+ * 따라서 getServerSideProps 함수가 아무런 데이터를 반환하지 않을 경우에는 props 객체가 빈 객체({})가 되며,
+ * 컴포넌트에서는 이를 사용하여 아무런 데이터를 전달받지 않은 상태로 렌더링
+ */

@@ -8,16 +8,23 @@ const NavBar = () => {
   const { loading, authenticated } = useAuthState();
   const dispatch = useAuthDispatch();
 
-  const handleLogout = () => {
-    axios
-      .post('/auth/logout')
-      .then(() => {
-        dispatch('LOGOUT');
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleLogout = async () => {
+    try {
+      await axios.post('/auth/logout');
+      dispatch('LOGOUT');
+      //   window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+    //     axios
+    //       .post('/auth/logout')
+    //       .then(() => {
+    //         dispatch('LOGOUT');
+    //         window.location.reload();
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
   };
 
   return (

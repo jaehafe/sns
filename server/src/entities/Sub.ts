@@ -36,11 +36,11 @@ export default class Sub extends BaseEntity {
   get imageUrl(): string {
     return this.imageUrn
       ? `${process.env.APP_URL}/images/${this.imageUrn}`
-      : 'https://www.gravatar.com/avatar?d=m&f=y';
+      : 'https://www.gravatar.com/avatar?d=mp&f=y';
   }
 
   @Expose()
-  get bannerUrl(): string | undefined {
+  get bannerUrl(): string {
     return this.bannerUrn ? `${process.env.APP_URL}/images/${this.bannerUrn}` : undefined;
   }
 }

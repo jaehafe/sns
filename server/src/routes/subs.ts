@@ -80,7 +80,7 @@ const topSubs = async (req: Request, res: Response) => {
 
 const router = Router();
 
-router.get('/:name', userMiddleware, authMiddleware, getSub);
+router.get('/:name', userMiddleware, getSub);
 router.post('/', userMiddleware, authMiddleware, createSub);
 router.get('/sub/topSubs', topSubs);
 

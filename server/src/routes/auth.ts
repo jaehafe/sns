@@ -37,7 +37,7 @@ const register = async (req: Request, res: Response) => {
     // Entity의 조건으로 user 데이터 유효성 검사
     errors = await validate(user);
 
-    if (errors.length > 0) return res.status(400).json(mapError(error));
+    if (errors.length > 0) return res.status(400).json(mapError(errors));
 
     await user.save();
 

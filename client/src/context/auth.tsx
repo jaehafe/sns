@@ -58,19 +58,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     defaultDispatch({ type, payload });
   };
 
-  useEffect(() => {
-    async function loadUser() {
-      try {
-        const res = await axios.get('/auth/me');
-        dispatch('LOGIN', res.data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        dispatch('STOP_LOADING');
-      }
-    }
-    loadUser();
-  }, []);
+  // useEffect(() => {
+  //   async function loadUser() {
+  //     try {
+  //       const res = await axios.get('/auth/me');
+  //       dispatch('LOGIN', res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       dispatch('STOP_LOADING');
+  //     }
+  //   }
+  //   loadUser();
+  // }, []);
 
   return (
     <DispatchContext.Provider value={dispatch}>

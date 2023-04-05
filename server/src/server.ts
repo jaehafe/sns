@@ -12,7 +12,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-const origin = 'http://localhost:3000';
+const origin = process.env.ORIGIN;
 
 app.use(cors({ origin, credentials: true }));
 app.use(express.json());
@@ -33,7 +33,7 @@ app.use('/api/users', userRoutes);
 
 let port = 4000;
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at ${process.env.ORIGIN}`);
 
   AppDataSource.initialize()
     .then(() => {

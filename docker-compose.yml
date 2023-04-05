@@ -9,6 +9,7 @@ services:
     environment:
       POSTGRES_USER: '${DB_USER_ID}'
       POSTGRES_PASSWORD: '${DB_USER_PASSWORD}'
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
     volumes:
       - ./data:/var/lib/postgresql/data
     # 호스트의 ./data 디렉토리와 컨테이너의 /var/lib/postgresql/data 디렉토리를 연결

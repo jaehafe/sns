@@ -17,7 +17,7 @@ const PostPage = () => {
   const { data: post, error } = useSWR<Post>(
     identifier && slug ? `/posts/${identifier}/${slug}` : null
   );
-  const { data: comments } = useSWR<Comment[]>(
+  const { data: comments, mutate } = useSWR<Comment[]>(
     identifier && slug ? `/posts/${identifier}/${slug}/comments` : null
   );
 
@@ -29,6 +29,7 @@ const PostPage = () => {
       await axios.post(`/posts/${post?.identifier}/${post?.slug}/comments`, {
         body: newComment,
       });
+      mutate();
       setNewComment('');
     } catch (error) {
       console.error(error);

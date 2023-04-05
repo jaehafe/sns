@@ -17,7 +17,7 @@ const SubPage = () => {
 
   const { data: sub, error, mutate } = useSWR(subName ? `/subs/${subName}` : null);
 
-  console.log('sub>>', sub);
+  // console.log('sub>>', sub);
 
   useEffect(() => {
     if (!sub || !user) return;

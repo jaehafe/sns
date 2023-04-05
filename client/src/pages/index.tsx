@@ -6,16 +6,21 @@ import useSWR from 'swr';
 import { Post, Sub } from '../types';
 import { useAuthState } from '../context/auth';
 import useSWRInfinite from 'swr/infinite';
+import axios from 'axios';
 
 const Home: NextPage = () => {
   const { authenticated } = useAuthState();
+
+  // const fetcher = async (url: string) => {
+  //   return await axios.get(url).then((res) => res.data);
+  // };
 
   const address = `/subs/sub/topSubs`;
   const { data: topSubs } = useSWR<Sub[]>(address);
 
   const getKey = (pageIndex: number, previousPageData: Post[]) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `/post?page=${pageIndex}`;
+    return `/posts?page=${pageIndex}`;
   };
 
   const {
@@ -26,6 +31,7 @@ const Home: NextPage = () => {
     isValidating,
     mutate,
   } = useSWRInfinite<Post[]>(getKey);
+  console.log('data>>', data);
 
   return (
     <div className="flex max-w-5xl px-4 pt-5 mx-auto">

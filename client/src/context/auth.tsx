@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loading: true,
   });
 
-  console.log('AuthState>>', state);
+  // console.log('AuthState>>', state);
 
   const dispatch = (type: string, payload?: any) => {
     defaultDispatch({ type, payload });
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const loadUser = async () => {
       try {
         const res = await axios.get('/auth/me');
-        console.log('res.data>>', res.data);
+        // console.log('res.data>>', res.data);
 
         dispatch('LOGIN', res.data);
       } catch (error) {

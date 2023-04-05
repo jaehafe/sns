@@ -73,8 +73,8 @@ const getPosts = async (req: Request, res: Response) => {
 
     return res.json(posts);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'something went wrong' });
+    console.log(error);
+    return res.status(500).json({ error: '문제가 발생했습니다.' });
   }
 };
 

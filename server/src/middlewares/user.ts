@@ -6,7 +6,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   try {
     // 요청에 있는 쿠키의 토큰 가져오기
     const token = req.cookies.token;
-    console.log('token', token);
+    // console.log('token', token);
 
     if (!token) return next();
 
@@ -19,6 +19,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     // 유저 정보를 res.local.user에 넣어주기
     res.locals.user = user;
+
+    console.log('user>>', user);
 
     return next();
   } catch (error) {

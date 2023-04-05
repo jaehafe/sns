@@ -7,7 +7,7 @@ import User from './User';
 @Entity('votes')
 export default class Vote extends BaseEntity {
   @Column()
-  value: number; // 1, -1
+  value: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'username', referencedColumnName: 'username' })
@@ -17,13 +17,13 @@ export default class Vote extends BaseEntity {
   username: string;
 
   @Column({ nullable: true })
-  postId: string;
+  postId: number;
 
   @ManyToOne(() => Post)
   post: Post;
 
   @Column({ nullable: true })
-  commendId: number;
+  commentId: number;
 
   @ManyToOne(() => Comment)
   comment: Comment;

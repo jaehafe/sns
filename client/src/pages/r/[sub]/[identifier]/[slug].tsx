@@ -36,6 +36,8 @@ const PostPage = () => {
     }
   };
 
+  console.log('comments>>', comments);
+
   const vote = async (value: number, comment?: Comment) => {
     // 로그인 상태가 아니면 login 페이지로 이동
     if (!authenticated) router.push('/login');
@@ -125,7 +127,7 @@ const PostPage = () => {
                     <p className="mb-1 text-xs">
                       <Link legacyBehavior href={`/u/${user?.username}`}>
                         <a className="font-semibold text-blue-500">{user?.username}</a>
-                      </Link>{' '}
+                      </Link>
                       으로 댓글 작성
                     </p>
                     <form onSubmit={handleSubmit}>

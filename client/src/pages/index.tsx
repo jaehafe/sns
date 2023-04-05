@@ -1,21 +1,16 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import axios from 'axios';
 import useSWR from 'swr';
 import { Sub } from '../types';
 import { useAuthState } from '../context/auth';
 
 const Home: NextPage = () => {
   const { authenticated } = useAuthState();
-  const fetcher = async (url: string) => {
-    return await axios.get(url).then((res) => res.data);
-  };
 
   const address = `/subs/sub/topSubs`;
-  const { data: topSubs } = useSWR<Sub[]>(address, fetcher);
+  const { data: topSubs } = useSWR<Sub[]>(address);
   console.log('topSubs>>', topSubs);
 
   return (

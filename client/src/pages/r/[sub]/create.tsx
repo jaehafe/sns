@@ -8,7 +8,7 @@ const PostCreate = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const router = useRouter();
-  console.log('router.query>>', router.query);
+
   const { sub: subName } = router.query;
 
   const submitPost = async (e: FormEvent) => {
@@ -21,6 +21,7 @@ const PostCreate = () => {
         body,
         sub: subName,
       });
+      console.log('post!!!', post);
 
       router.push(`/r/${subName}/${post.identifier}/${post.slug}`);
     } catch (error) {
